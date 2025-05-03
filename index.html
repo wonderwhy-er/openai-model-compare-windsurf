@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI Image Model Comparison</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .prompt-container {
+            margin-bottom: 20px;
+        }
+        .prompt-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .api-key-container {
+            margin-bottom: 20px;
+        }
+        .api-key-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .generate-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 30px;
+        }
+        .generate-btn:hover {
+            background-color: #45a049;
+        }
+        .generate-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .images-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .image-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .image-card h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error-message {
+            color: #d9534f;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .model-info {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>OpenAI Image Model Comparison</h1>
+    
+    <div class="api-key-container">
+        <input type="password" id="api-key" class="api-key-input" placeholder="Enter your OpenAI API key" />
+    </div>
+    
+    <div class="prompt-container">
+        <input type="text" id="prompt-input" class="prompt-input" placeholder="Enter your image prompt" />
+    </div>
+    
+    <button id="generate-btn" class="generate-btn">Generate Images</button>
+    
+    <div class="images-container">
+        <div class="image-card">
+            <h2>DALL-E 2</h2>
+            <div class="image-container" id="dalle2-container">
+                <div class="loading" id="dalle2-loading" style="display: none;">
+                    <div class="spinner"></div>
+                </div>
+                <img id="dalle2-image" src="" alt="DALL-E 2 generated image" style="display: none;" />
+            </div>
+            <div class="error-message" id="dalle2-error"></div>
+            <div class="model-info">
+                Released in April 2022, DALL-E 2 was a significant improvement over the original DALL-E model.
+            </div>
+        </div>
+        
+        <div class="image-card">
+            <h2>DALL-E 3</h2>
+            <div class="image-container" id="dalle3-container">
+                <div class="loading" id="dalle3-loading" style="display: none;">
+                    <div class="spinner"></div>
+                </div>
+                <img id="dalle3-image" src="" alt="DALL-E 3 generated image" style="display: none;" />
+            </div>
+            <div class="error-message" id="dalle3-error"></div>
+            <div class="model-info">
+                Released in October 2023, DALL-E 3 offers significantly improved image quality and prompt understanding.
+            </div>
+        </div>
+        
+        <div class="image-card">
+            <h2>GPT-Image-1</h2>
+            <div class="image-container" id="gpt4o-container">
+                <div class="loading" id="gpt4o-loading" style="display: none;">
+                    <div class="spinner"></div>
+                </div>
+                <img id="gpt4o-image" src="" alt="GPT-Image-1 generated image" style="display: none;" />
+            </div>
+            <div class="error-message" id="gpt4o-error"></div>
+            <div class="model-info">
+                Released in 2024, GPT-Image-1 is OpenAI's newest image generation model, representing the latest advancements in AI image creation technology.
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
