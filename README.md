@@ -1,4 +1,4 @@
-# OpenAI Image Model Comparison
+# OpenAI Image Model Comparison - Made with Windsurf and Sonnet 3.7 for Vibe Coding comparison
 
 ![OpenAI Image Comparison Banner](assets/banner.svg)
 
